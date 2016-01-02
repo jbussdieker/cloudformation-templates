@@ -286,6 +286,21 @@
           "id": "7ec2964a-6d53-427e-9ef0-3b368db5e505"
         },
         "z": 3
+      },
+      "327dc6bc-00f8-4335-98a9-7fd0dffcea7e": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1120,
+          "y": 160
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "c7696ff7-b5c8-4798-9e85-ffd99f9fc0c8"
+        ]
       }
     }
   },
@@ -719,6 +734,28 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "7ec2964a-6d53-427e-9ef0-3b368db5e505"
+        }
+      }
+    },
+    "RC504KO": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "HostedZoneName": "jbussdieker.com.",
+        "Name": "vpc.jbussdieker.com.",
+        "TTL": "60",
+        "Type": "CNAME",
+        "ResourceRecords": [
+          {
+            "Fn::GetAtt": [
+              "I41J8R",
+              "PublicDnsName"
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "327dc6bc-00f8-4335-98a9-7fd0dffcea7e"
         }
       }
     }
