@@ -13,6 +13,8 @@
         },
         "z": 0,
         "embeds": [
+          "7ec2964a-6d53-427e-9ef0-3b368db5e505",
+          "e0321c1b-0c52-4988-980b-295149ae0909",
           "26c7bcf2-9250-4bd4-928d-6fae5a4a6ba1",
           "387281f1-6c4e-419b-b533-327f29e5d364",
           "80c51d65-e182-4ded-9e9a-ff6c77b4ced2",
@@ -42,11 +44,11 @@
       },
       "3680c2ff-80db-4bf5-933b-975e802073b3": {
         "size": {
-          "width": 280,
-          "height": 300
+          "width": 290,
+          "height": 140
         },
         "position": {
-          "x": 600,
+          "x": 590,
           "y": 70
         },
         "z": 1,
@@ -213,6 +215,77 @@
         "z": 2,
         "parent": "26c7bcf2-9250-4bd4-928d-6fae5a4a6ba1",
         "embeds": []
+      },
+      "e0321c1b-0c52-4988-980b-295149ae0909": {
+        "size": {
+          "width": 290,
+          "height": 140
+        },
+        "position": {
+          "x": 590,
+          "y": 250
+        },
+        "z": 1,
+        "parent": "e36d068f-d99d-4764-9e2b-c12964177c7c",
+        "embeds": [
+          "e2ffaa1d-aa7b-4978-ac7c-b56ca7bb8a9e"
+        ]
+      },
+      "24b2ff4f-e53b-4490-a721-8675c54fae18": {
+        "source": {
+          "id": "26c7bcf2-9250-4bd4-928d-6fae5a4a6ba1"
+        },
+        "target": {
+          "id": "e0321c1b-0c52-4988-980b-295149ae0909"
+        },
+        "z": 1
+      },
+      "144bf141-8205-4d38-b0a0-9ac8d93e6b99": {
+        "source": {
+          "id": "80c51d65-e182-4ded-9e9a-ff6c77b4ced2"
+        },
+        "target": {
+          "id": "e0321c1b-0c52-4988-980b-295149ae0909"
+        },
+        "z": 1
+      },
+      "e2ffaa1d-aa7b-4978-ac7c-b56ca7bb8a9e": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 780,
+          "y": 290
+        },
+        "z": 2,
+        "parent": "e0321c1b-0c52-4988-980b-295149ae0909",
+        "embeds": [],
+        "ismemberof": [
+          "7ec2964a-6d53-427e-9ef0-3b368db5e505"
+        ]
+      },
+      "7ec2964a-6d53-427e-9ef0-3b368db5e505": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 910,
+          "y": 290
+        },
+        "z": 1,
+        "parent": "e36d068f-d99d-4764-9e2b-c12964177c7c",
+        "embeds": []
+      },
+      "ec8e7366-b345-4e72-a65a-e11de8d03ad3": {
+        "source": {
+          "id": "e2ffaa1d-aa7b-4978-ac7c-b56ca7bb8a9e"
+        },
+        "target": {
+          "id": "7ec2964a-6d53-427e-9ef0-3b368db5e505"
+        },
+        "z": 3
       }
     }
   },
@@ -504,6 +577,148 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "a8fa5bc0-0eb2-4068-96fa-ab1eff3670ef"
+        }
+      }
+    },
+    "SUB1Q3KF": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.1.0/24",
+        "VpcId": {
+          "Ref": "VPC3GLWZ"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "e0321c1b-0c52-4988-980b-295149ae0909"
+        }
+      }
+    },
+    "SUBNACL5CDLB": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NACLAFM1"
+        },
+        "SubnetId": {
+          "Ref": "SUB1Q3KF"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "24b2ff4f-e53b-4490-a721-8675c54fae18"
+        }
+      }
+    },
+    "SUBRTE3R0P4": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "RT28H0H"
+        },
+        "SubnetId": {
+          "Ref": "SUB1Q3KF"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "144bf141-8205-4d38-b0a0-9ac8d93e6b99"
+        }
+      }
+    },
+    "I2IAO7": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "SUB1Q3KF"
+        },
+        "ImageId": "ami-56ea8636",
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "InstanceType": {
+          "Ref": "InstanceType"
+        },
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash -xe\n",
+                "yum update -y aws-cfn-bootstrap\n",
+                "# Install the files and packages from the metadata\n",
+                "/opt/aws/bin/cfn-init -v ",
+                "         --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                "         --resource I2IAO7 ",
+                "         --configsets Install ",
+                "         --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n"
+              ]
+            ]
+          }
+        },
+        "SecurityGroupIds": [
+          {
+            "Ref": "SG19Z33"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "e2ffaa1d-aa7b-4978-ac7c-b56ca7bb8a9e"
+        },
+        "AWS::CloudFormation::Init": {
+          "configSets": {
+            "Install": [
+              "Install"
+            ]
+          },
+          "Install": {
+            "packages": {
+              "yum": {
+                "mysql": [],
+                "mysql-server": [],
+                "mysql-libs": [],
+                "httpd": [],
+                "php": [],
+                "php-mysql": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "SG19Z33": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "other",
+        "VpcId": {
+          "Ref": "VPC3GLWZ"
+        },
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "tcp",
+            "FromPort": "22",
+            "ToPort": "22"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "tcp",
+            "FromPort": "80",
+            "ToPort": "80"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "7ec2964a-6d53-427e-9ef0-3b368db5e505"
         }
       }
     }
