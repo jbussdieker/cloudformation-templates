@@ -387,6 +387,25 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "c7696ff7-b5c8-4798-9e85-ffd99f9fc0c8"
+        },
+        "AWS::CloudFormation::Init": {
+          "configSets": {
+            "Install": [
+              "Install"
+            ]
+          },
+          "Install": {
+            "packages": {
+              "yum": {
+                "mysql": [],
+                "mysql-server": [],
+                "mysql-libs": [],
+                "httpd": [],
+                "php": [],
+                "php-mysql": []
+              }
+            }
+          }
         }
       }
     },
