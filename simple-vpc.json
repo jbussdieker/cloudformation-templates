@@ -484,18 +484,57 @@
         "AWS::CloudFormation::Init": {
           "configSets": {
             "Install": [
-              "Install"
+              "AddSaltStackRepoKey",
+              "AddSaltStackRepo",
+              "YumCleanExpireCache",
+              "YumUpdate",
+              "InstallSaltMaster"
             ]
           },
-          "Install": {
+          "AddSaltStackRepoKey": {
+            "commands": {
+              "addkey": {
+                "command": "rpm --import https://repo.saltstack.com/yum/redhat/6/x86_64/latest/SALTSTACK-GPG-KEY.pub"
+              }
+            }
+          },
+          "AddSaltStackRepo": {
+            "files": {
+              "/etc/yum.repos.d/saltstack.repo": {
+                "content": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "[saltstack-repo]\n",
+                      "name=SaltStack repo for RHEL/CentOS 6\n",
+                      "baseurl=https://repo.saltstack.com/yum/redhat/6/$basearch/latest\n",
+                      "enabled=1\n",
+                      "gpgcheck=1\n",
+                      "gpgkey=https://repo.saltstack.com/yum/redhat/6/$basearch/latest/6SALTSTACK-GPG-KEY.pub\n"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "YumCleanExpireCache": {
+            "commands": {
+              "expirecache": {
+                "command": "yum clean expire-cache"
+              }
+            }
+          },
+          "YumUpdate": {
+            "commands": {
+              "yumupdate": {
+                "command": "yum update -y"
+              }
+            }
+          },
+          "InstallSaltMaster": {
             "packages": {
               "yum": {
-                "mysql": [],
-                "mysql-server": [],
-                "mysql-libs": [],
-                "httpd": [],
-                "php": [],
-                "php-mysql": []
+                "salt-master": []
               }
             }
           }
