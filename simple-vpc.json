@@ -273,7 +273,10 @@
     "DHCPAJST": {
       "Type": "AWS::EC2::DHCPOptions",
       "Properties": {
-        "DomainName": "example.com"
+        "DomainName": "example.com",
+        "DomainNameServers": [
+          "AmazonProvidedDNS"
+        ]
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
