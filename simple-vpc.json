@@ -780,7 +780,17 @@
       "Type": "AWS::Route53::RecordSet",
       "Properties": {
         "HostedZoneName": "jbussdieker.com.",
-        "Name": "vpc.jbussdieker.com.",
+        "Name": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "AWS::StackName"
+              },
+              ".jbussdieker.com."
+            ]
+          ]
+        },
         "TTL": "60",
         "Type": "CNAME",
         "ResourceRecords": [
