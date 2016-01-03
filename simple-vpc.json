@@ -556,12 +556,14 @@
               }
             },
             "services": {
-              "salt-master": {
-                "enabled": "true",
-                "ensureRunning": "true",
-                "files": [
-                  "/etc/salt/master"
-                ]
+              "sysvinit": {
+                "salt-master": {
+                  "enabled": "true",
+                  "ensureRunning": "true",
+                  "files": [
+                    "/etc/salt/master"
+                  ]
+                }
               }
             }
           },
@@ -577,19 +579,25 @@
                   "Fn::Join": [
                     "",
                     [
-                      "master: salt-master.jbussdieker.com\n"
+                      "master: ",
+                      {
+                        "Ref": "AWS::StackName"
+                      },
+                      ".jbussdieker.com\n"
                     ]
                   ]
                 }
               }
             },
             "services": {
-              "salt-minion": {
-                "enabled": "true",
-                "ensureRunning": "true",
-                "files": [
-                  "/etc/salt/minion"
-                ]
+              "sysvinit": {
+                "salt-minion": {
+                  "enabled": "true",
+                  "ensureRunning": "true",
+                  "files": [
+                    "/etc/salt/minion"
+                  ]
+                }
               }
             }
           }
