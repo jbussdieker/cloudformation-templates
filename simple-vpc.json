@@ -560,6 +560,12 @@
                   "Ref": "SaltRepo"
                 },
                 "authentication": "GithubCredentials"
+              },
+              "/var/tmp/saltpillar.tar.gz": {
+                "source": {
+                  "Ref": "SaltPillarRepo"
+                },
+                "authentication": "GithubCredentials"
               }
             }
           },
@@ -567,6 +573,9 @@
             "commands": {
               "extractsaltrepo": {
                 "command": "mkdir -p /srv/salt; tar zxf /var/tmp/saltrepo.tar.gz -C /srv/salt --strip-components=1"
+              },
+              "extractsaltpillarrepo": {
+                "command": "mkdir -p /srv/pillar; tar zxf /var/tmp/saltpillar.tar.gz -C /srv/pillar --strip-components=1"
               }
             }
           },
@@ -917,6 +926,12 @@
       "Type": "String",
       "MinLength": "1",
       "Default": "https://github.com/my-github-org/salt/archive/master.tar.gz"
+    },
+    "SaltPillarRepo": {
+      "Description": "Salt pillar repo URL",
+      "Type": "String",
+      "MinLength": "1",
+      "Default": "https://github.com/my-github-org/salt-pillar/archive/master.tar.gz"
     },
     "GitHubLogin": {
       "Description": "GitHub username to login with",
