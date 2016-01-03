@@ -488,7 +488,8 @@
               "AddSaltStackRepo",
               "YumCleanExpireCache",
               "YumUpdate",
-              "InstallSaltMaster"
+              "InstallSaltMaster",
+              "InstallSaltMinion"
             ]
           },
           "AddSaltStackRepoKey": {
@@ -535,6 +536,55 @@
             "packages": {
               "yum": {
                 "salt-master": []
+              }
+            },
+            "files": {
+              "/etc/salt/master": {
+                "content": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "open_mode: True\n"
+                    ]
+                  ]
+                }
+              }
+            },
+            "services": {
+              "salt-master": {
+                "enabled": "true",
+                "ensureRunning": "true",
+                "files": [
+                  "/etc/salt/master"
+                ]
+              }
+            }
+          },
+          "InstallSaltMinion": {
+            "packages": {
+              "yum": {
+                "salt-minion": []
+              }
+            },
+            "files": {
+              "/etc/salt/minion": {
+                "content": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "master: salt-master.jbussdieker.com\n"
+                    ]
+                  ]
+                }
+              }
+            },
+            "services": {
+              "salt-minion": {
+                "enabled": "true",
+                "ensureRunning": "true",
+                "files": [
+                  "/etc/salt/minion"
+                ]
               }
             }
           }
