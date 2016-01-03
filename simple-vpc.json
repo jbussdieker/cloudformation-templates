@@ -579,11 +579,7 @@
                   "Fn::Join": [
                     "",
                     [
-                      "master: ",
-                      {
-                        "Ref": "AWS::StackName"
-                      },
-                      ".jbussdieker.com\n"
+                      "master: localhost\n"
                     ]
                   ]
                 }
