@@ -510,7 +510,8 @@
               "DownloadSaltRepo",
               "ExtractSaltRepo",
               "InstallSaltMaster",
-              "InstallSaltMinion"
+              "InstallSaltMinion",
+              "RunSalt"
             ]
           },
           "AddSaltStackRepoKey": {
@@ -636,6 +637,13 @@
                     "/etc/salt/minion"
                   ]
                 }
+              }
+            }
+          },
+          "RunSalt": {
+            "commands": {
+              "runsalt": {
+                "command": "salt-call state.highstate"
               }
             }
           }
@@ -919,25 +927,27 @@
     "KeyName": {
       "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
       "Type": "AWS::EC2::KeyPair::KeyName",
-      "ConstraintDescription": "Can contain only ASCII characters."
+      "ConstraintDescription": "Can contain only ASCII characters.",
+      "Default": "jbussdieker"
     },
     "SaltRepo": {
-      "Description": "Salt repo URL",
+      "Description": "Salt States URL",
       "Type": "String",
       "MinLength": "1",
-      "Default": "https://github.com/my-github-org/salt/archive/master.tar.gz"
+      "Default": "https://github.com/jbussdieker/salt/archive/master.tar.gz"
     },
     "SaltPillarRepo": {
-      "Description": "Salt pillar repo URL",
+      "Description": "Salt Pillar URL",
       "Type": "String",
       "MinLength": "1",
-      "Default": "https://github.com/my-github-org/salt-pillar/archive/master.tar.gz"
+      "Default": "https://github.com/jbussdieker/salt-pillar/archive/master.tar.gz"
     },
     "GitHubLogin": {
       "Description": "GitHub username to login with",
       "Type": "String",
       "MinLength": "1",
-      "MaxLength": "41"
+      "MaxLength": "41",
+      "Default": "jbussdieker"
     },
     "GitHubPassword": {
       "Description": "GitHub password to login with",
