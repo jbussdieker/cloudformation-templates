@@ -13,9 +13,9 @@
         },
         "z": 0,
         "embeds": [
-          "e0321c1b-0c52-4988-980b-295149ae0909",
-          "26c7bcf2-9250-4bd4-928d-6fae5a4a6ba1",
           "80c51d65-e182-4ded-9e9a-ff6c77b4ced2",
+          "26c7bcf2-9250-4bd4-928d-6fae5a4a6ba1",
+          "e0321c1b-0c52-4988-980b-295149ae0909",
           "3680c2ff-80db-4bf5-933b-975e802073b3",
           "387281f1-6c4e-419b-b533-327f29e5d364"
         ]
@@ -26,8 +26,8 @@
           "height": 60
         },
         "position": {
-          "x": 990,
-          "y": 260
+          "x": 1010,
+          "y": 160
         },
         "z": 0,
         "embeds": []
@@ -273,42 +273,6 @@
     }
   },
   "Resources": {
-    "4VZ9C": {
-      "Type": "AWS::EC2::NetworkAclEntry",
-      "Properties": {
-        "RuleNumber": "100",
-        "CidrBlock": "0.0.0.0/0",
-        "Egress": "true",
-        "Protocol": "-1",
-        "RuleAction": "allow",
-        "NetworkAclId": {
-          "Ref": "MainNetworkAcl"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "a3eed766-5e79-4288-8502-85080d17b1f4"
-        }
-      }
-    },
-    "4X1HT": {
-      "Type": "AWS::EC2::NetworkAclEntry",
-      "Properties": {
-        "RuleNumber": "100",
-        "CidrBlock": "0.0.0.0/0",
-        "Egress": "false",
-        "Protocol": "-1",
-        "RuleAction": "allow",
-        "NetworkAclId": {
-          "Ref": "MainNetworkAcl"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "a8fa5bc0-0eb2-4068-96fa-ab1eff3670ef"
-        }
-      }
-    },
     "SaltMasterInstance": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
@@ -745,23 +709,6 @@
         }
       }
     },
-    "InternetGatewayRoute": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "RouteTableId": {
-          "Ref": "MainRouteTable"
-        },
-        "GatewayId": {
-          "Ref": "MainInternetGateway"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "4db4eccc-b153-4a42-93bb-cd9c15e3b834"
-        }
-      }
-    },
     "PublicSubnetRouteTableAssociation": {
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
       "Properties": {
@@ -791,6 +738,59 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "a0e8de13-8b67-4e33-a5a4-17a15b9b9550"
+        }
+      }
+    },
+    "MainInternetGatewayRoute": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "MainRouteTable"
+        },
+        "GatewayId": {
+          "Ref": "MainInternetGateway"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "4db4eccc-b153-4a42-93bb-cd9c15e3b834"
+        }
+      }
+    },
+    "MainNetworkAclEntryEgress": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "RuleNumber": "100",
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": "true",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "NetworkAclId": {
+          "Ref": "MainNetworkAcl"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a3eed766-5e79-4288-8502-85080d17b1f4"
+        }
+      }
+    },
+    "MainNetworkAclEntryIngress": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "RuleNumber": "100",
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": "false",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "NetworkAclId": {
+          "Ref": "MainNetworkAcl"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a8fa5bc0-0eb2-4068-96fa-ab1eff3670ef"
         }
       }
     }
