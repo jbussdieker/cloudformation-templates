@@ -578,7 +578,9 @@
     "MainDHCPOptions": {
       "Type": "AWS::EC2::DHCPOptions",
       "Properties": {
-        "DomainName": "example.com",
+        "DomainName": {
+          "Ref": "DomainName"
+        },
         "DomainNameServers": [
           "AmazonProvidedDNS"
         ]
