@@ -285,7 +285,13 @@
           }
         ],
         "ImageId": {
-          "Ref": "ImageId"
+          "Fn::FindInMap": [
+            "RegionMap",
+            {
+              "Ref": "AWS::Region"
+            },
+            "AMI"
+          ]
         },
         "KeyName": {
           "Ref": "KeyName"
@@ -823,11 +829,6 @@
     }
   },
   "Parameters": {
-    "ImageId": {
-      "Description": "AMI Image to use.",
-      "Type": "String",
-      "Default": "ami-56ea8636"
-    },
     "SaltMasterName": {
       "Description": "Name of salt-master to create.",
       "Type": "String",
@@ -914,6 +915,37 @@
         "cg1.4xlarge"
       ],
       "ConstraintDescription": "Must be a valid EC2 instance type"
+    }
+  },
+  "Mappings": {
+    "RegionMap": {
+      "us-east-1": {
+        "AMI": "ami-5fb8c835"
+      },
+      "us-west-1": {
+        "AMI": "ami-56ea8636"
+      },
+      "us-west-2": {
+        "AMI": "ami-d93622b8"
+      },
+      "eu-west-1": {
+        "AMI": "ami-95e33ce6"
+      },
+      "eu-central-1": {
+        "AMI": "ami-794a5915"
+      },
+      "sa-east-1": {
+        "AMI": "ami-7d15ad11"
+      },
+      "ap-southeast-1": {
+        "AMI": "ami-34bd7a57"
+      },
+      "ap-southeast-2": {
+        "AMI": "ami-ced887ad"
+      },
+      "ap-northeast-1": {
+        "AMI": "ami-393c1957"
+      }
     }
   }
 }
