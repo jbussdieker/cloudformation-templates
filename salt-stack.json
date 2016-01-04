@@ -359,7 +359,17 @@
           "SetHostname": {
             "commands": {
               "sethostname": {
-                "command": "hostname salt-master"
+                "command": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "hostname ",
+                      {
+                        "Ref": "SaltMasterName"
+                      }
+                    ]
+                  ]
+                }
               }
             }
           },
@@ -610,7 +620,7 @@
             "",
             [
               {
-                "Ref": "AWS::StackName"
+                "Ref": "SaltMasterName"
               },
               ".",
               {
@@ -817,6 +827,11 @@
       "Description": "AMI Image to use.",
       "Type": "String",
       "Default": "ami-56ea8636"
+    },
+    "SaltMasterName": {
+      "Description": "Name of salt-master to create.",
+      "Type": "String",
+      "Default": "salt"
     },
     "DomainName": {
       "Description": "Name of existing domain.",
