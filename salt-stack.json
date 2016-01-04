@@ -284,7 +284,9 @@
             "Ref": "SaltMasterSecurityGroup"
           }
         ],
-        "ImageId": "ami-56ea8636",
+        "ImageId": {
+          "Ref": "ImageId"
+        },
         "KeyName": {
           "Ref": "KeyName"
         },
@@ -801,6 +803,11 @@
     }
   },
   "Parameters": {
+    "ImageId": {
+      "Description": "AMI Image to use.",
+      "Type": "String",
+      "Default": "ami-56ea8636"
+    },
     "DomainName": {
       "Description": "Name of existing domain.",
       "Type": "String",
