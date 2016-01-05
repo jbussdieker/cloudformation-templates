@@ -559,7 +559,7 @@
             "ToPort": "22"
           },
           {
-            "DestinationSecurityGroupId": {
+            "SourceSecurityGroupId": {
               "Fn::GetAtt": [
                 "SaltMinionSecurityGroup",
                 "GroupId"
