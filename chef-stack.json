@@ -353,6 +353,7 @@
               "SetHostname",
               "DownloadChefServer",
               "InstallChefServer",
+              "ReconfigureChefServer",
               "YumCleanExpireCache",
               "YumUpdate"
             ]
@@ -385,6 +386,13 @@
             "commands": {
               "installchefserver": {
                 "command": "rpm -Uvh /var/tmp/chef-server-core-12.3.1-1.el6.x86_64.rpm"
+              }
+            }
+          },
+          "ReconfigureChefServer": {
+            "commands": {
+              "reconfigurechefserver": {
+                "command": "chef-server-ctl reconfigure"
               }
             }
           },
