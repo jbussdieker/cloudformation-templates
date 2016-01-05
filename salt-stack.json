@@ -155,7 +155,10 @@
         },
         "z": 1,
         "parent": "e36d068f-d99d-4764-9e2b-c12964177c7c",
-        "embeds": []
+        "embeds": [],
+        "isrelatedto": [
+          "282ef719-aa16-477c-9dd2-8b11a4f2dd53"
+        ]
       },
       "5ca4bd96-016c-4538-a7dd-628d47b932b3": {
         "source": {
@@ -556,10 +559,15 @@
             "ToPort": "22"
           },
           {
-            "CidrIp": "0.0.0.0/0",
+            "DestinationSecurityGroupId": {
+              "Fn::GetAtt": [
+                "SaltMinionSecurityGroup",
+                "GroupId"
+              ]
+            },
             "IpProtocol": "tcp",
-            "FromPort": "80",
-            "ToPort": "80"
+            "FromPort": "4505",
+            "ToPort": "4506"
           }
         ]
       },
@@ -1060,12 +1068,6 @@
             "IpProtocol": "tcp",
             "FromPort": "22",
             "ToPort": "22"
-          },
-          {
-            "CidrIp": "0.0.0.0/0",
-            "IpProtocol": "tcp",
-            "FromPort": "80",
-            "ToPort": "80"
           }
         ]
       },
