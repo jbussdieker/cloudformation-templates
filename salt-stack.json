@@ -837,7 +837,7 @@
     "DomainName": {
       "Description": "Name of existing domain.",
       "Type": "String",
-      "Default": "jbussdieker.com."
+      "Default": "sandbox.jbussdieker.com."
     },
     "KeyName": {
       "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
