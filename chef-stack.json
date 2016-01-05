@@ -1025,12 +1025,12 @@
   },
   "Parameters": {
     "ChefServerName": {
-      "Description": "Name of Chef Server to create.",
+      "Description": "Name of chef server to create.",
       "Type": "String",
       "Default": "chef"
     },
     "ChefClientName": {
-      "Description": "Name of Chef Client to create.",
+      "Description": "Name of chef client to create.",
       "Type": "String",
       "Default": "chef-client"
     },
