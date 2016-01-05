@@ -422,6 +422,7 @@
               "SetHostname",
               "DownloadChefServer",
               "InstallChefServer",
+              "WriteChefServerConfig",
               "ReconfigureChefServer",
               "YumCleanExpireCache",
               "YumUpdate"
@@ -455,6 +456,28 @@
             "commands": {
               "installchefserver": {
                 "command": "rpm -Uvh /var/tmp/chef-server-core-12.3.1-1.el6.x86_64.rpm"
+              }
+            }
+          },
+          "WriteChefServerConfig": {
+            "files": {
+              "/etc/opscode/chef-server.rb": {
+                "content": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "nginx['server_name'] = \"",
+                      {
+                        "Ref": "ChefServerName"
+                      },
+                      ".",
+                      {
+                        "Ref": "DomainName"
+                      },
+                      "\"\n"
+                    ]
+                  ]
+                }
               }
             }
           },
