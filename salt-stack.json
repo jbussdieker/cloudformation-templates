@@ -1003,7 +1003,15 @@
                   "Fn::Join": [
                     "",
                     [
-                      "master: localhost\n"
+                      "master: ",
+                      {
+                        "Ref": "SaltMasterName"
+                      },
+                      ".",
+                      {
+                        "Ref": "DomainName"
+                      },
+                      "\n"
                     ]
                   ]
                 }
