@@ -5,14 +5,15 @@
       "e36d068f-d99d-4764-9e2b-c12964177c7c": {
         "size": {
           "width": 570,
-          "height": 410
+          "height": 460
         },
         "position": {
-          "x": 370,
+          "x": 380,
           "y": 90
         },
         "z": 0,
         "embeds": [
+          "282ef719-aa16-477c-9dd2-8b11a4f2dd53",
           "80c51d65-e182-4ded-9e9a-ff6c77b4ced2",
           "26c7bcf2-9250-4bd4-928d-6fae5a4a6ba1",
           "e0321c1b-0c52-4988-980b-295149ae0909",
@@ -43,8 +44,8 @@
       },
       "3680c2ff-80db-4bf5-933b-975e802073b3": {
         "size": {
-          "width": 140,
-          "height": 140
+          "width": 330,
+          "height": 120
         },
         "position": {
           "x": 585,
@@ -53,7 +54,8 @@
         "z": 1,
         "parent": "e36d068f-d99d-4764-9e2b-c12964177c7c",
         "embeds": [
-          "c7696ff7-b5c8-4798-9e85-ffd99f9fc0c8"
+          "c7696ff7-b5c8-4798-9e85-ffd99f9fc0c8",
+          "de0d4ce5-9e41-4243-8cf8-8e3f439347f4"
         ]
       },
       "17df92a4-b0a2-42bc-9a5c-a018116de5e1": {
@@ -132,8 +134,8 @@
           "height": 60
         },
         "position": {
-          "x": 625,
-          "y": 334
+          "x": 770,
+          "y": 320
         },
         "z": 2,
         "parent": "3680c2ff-80db-4bf5-933b-975e802073b3",
@@ -148,8 +150,8 @@
           "height": 60
         },
         "position": {
-          "x": 820,
-          "y": 390
+          "x": 810,
+          "y": 460
         },
         "z": 1,
         "parent": "e36d068f-d99d-4764-9e2b-c12964177c7c",
@@ -261,14 +263,81 @@
           "height": 60
         },
         "position": {
-          "x": 630,
-          "y": 520
+          "x": 760,
+          "y": 580
         },
         "z": 0,
         "embeds": [],
         "isrelatedto": [
           "c7696ff7-b5c8-4798-9e85-ffd99f9fc0c8"
         ]
+      },
+      "de0d4ce5-9e41-4243-8cf8-8e3f439347f4": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 670,
+          "y": 320
+        },
+        "z": 2,
+        "parent": "3680c2ff-80db-4bf5-933b-975e802073b3",
+        "embeds": [],
+        "ismemberof": [
+          "387281f1-6c4e-419b-b533-327f29e5d364",
+          "282ef719-aa16-477c-9dd2-8b11a4f2dd53"
+        ],
+        "dependson": [
+          "c7696ff7-b5c8-4798-9e85-ffd99f9fc0c8"
+        ]
+      },
+      "6767f686-5acd-4893-b8eb-a91bf726088b": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 680,
+          "y": 580
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "c7696ff7-b5c8-4798-9e85-ffd99f9fc0c8",
+          "de0d4ce5-9e41-4243-8cf8-8e3f439347f4"
+        ]
+      },
+      "282ef719-aa16-477c-9dd2-8b11a4f2dd53": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 630,
+          "y": 460
+        },
+        "z": 1,
+        "parent": "e36d068f-d99d-4764-9e2b-c12964177c7c",
+        "embeds": []
+      },
+      "be43c4c3-b023-46c8-b377-aca7800188c5": {
+        "source": {
+          "id": "de0d4ce5-9e41-4243-8cf8-8e3f439347f4"
+        },
+        "target": {
+          "id": "282ef719-aa16-477c-9dd2-8b11a4f2dd53"
+        },
+        "z": 3
+      },
+      "8e1fb84e-e100-47bb-a15f-4d9eb58022bb": {
+        "source": {
+          "id": "de0d4ce5-9e41-4243-8cf8-8e3f439347f4"
+        },
+        "target": {
+          "id": "c7696ff7-b5c8-4798-9e85-ffd99f9fc0c8"
+        },
+        "z": 3
       }
     }
   },
@@ -421,7 +490,7 @@
     "ChefServerSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupDescription": "main",
+        "GroupDescription": "chef-server",
         "VpcId": {
           "Ref": "MainVPC"
         },
@@ -724,6 +793,211 @@
           "id": "a8fa5bc0-0eb2-4068-96fa-ab1eff3670ef"
         }
       }
+    },
+    "ChefClientInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "SecurityGroupIds": [
+          {
+            "Ref": "ChefClientSecurityGroup"
+          }
+        ],
+        "SubnetId": {
+          "Ref": "PublicSubnet"
+        },
+        "ImageId": {
+          "Fn::FindInMap": [
+            "RegionMap",
+            {
+              "Ref": "AWS::Region"
+            },
+            "AMI"
+          ]
+        },
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "InstanceType": {
+          "Ref": "InstanceType"
+        },
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\n",
+                "yum update -y aws-cfn-bootstrap\n",
+                "/opt/aws/bin/cfn-init -v --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " --resource ChefClientInstance --configsets Install --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n",
+                "/opt/aws/bin/cfn-signal -e $? --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " --resource ChefClientInstance --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "de0d4ce5-9e41-4243-8cf8-8e3f439347f4"
+        },
+        "AWS::CloudFormation::Authentication": {
+          "GithubAccessCredentials": {
+            "type": "basic",
+            "username": {
+              "Ref": "GitHubLogin"
+            },
+            "password": {
+              "Ref": "GitHubPassword"
+            },
+            "uris": [
+              "github.com"
+            ]
+          }
+        },
+        "AWS::CloudFormation::Init": {
+          "configSets": {
+            "Install": [
+              "SetHostname",
+              "DownloadChefClient",
+              "InstallChefClient",
+              "YumCleanExpireCache",
+              "YumUpdate"
+            ]
+          },
+          "SetHostname": {
+            "commands": {
+              "sethostname": {
+                "command": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "hostname ",
+                      {
+                        "Ref": "ChefClientName"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "DownloadChefClient": {
+            "files": {
+              "/var/tmp/chef-12.6.0-1.el6.x86_64.rpm": {
+                "source": "https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-12.6.0-1.el6.x86_64.rpm"
+              }
+            }
+          },
+          "InstallChefClient": {
+            "commands": {
+              "installchefclient": {
+                "command": "rpm -Uvh /var/tmp/chef-12.6.0-1.el6.x86_64.rpm"
+              }
+            }
+          },
+          "YumCleanExpireCache": {
+            "commands": {
+              "expirecache": {
+                "command": "yum clean expire-cache"
+              }
+            }
+          },
+          "YumUpdate": {
+            "commands": {
+              "yumupdate": {
+                "command": "yum update -y"
+              }
+            }
+          }
+        }
+      },
+      "CreationPolicy": {
+        "ResourceSignal": {
+          "Timeout": "PT15M"
+        }
+      },
+      "DependsOn": [
+        "ChefServerInstance"
+      ]
+    },
+    "ChefClientSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "chef-client",
+        "VpcId": {
+          "Ref": "MainVPC"
+        },
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "tcp",
+            "FromPort": "22",
+            "ToPort": "22"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "tcp",
+            "FromPort": "80",
+            "ToPort": "80"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "282ef719-aa16-477c-9dd2-8b11a4f2dd53"
+        }
+      }
+    },
+    "ChefClientRecordSet": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "HostedZoneName": {
+          "Ref": "DomainName"
+        },
+        "Name": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "ChefClientName"
+              },
+              ".",
+              {
+                "Ref": "DomainName"
+              }
+            ]
+          ]
+        },
+        "TTL": "60",
+        "Type": "CNAME",
+        "ResourceRecords": [
+          {
+            "Fn::GetAtt": [
+              "ChefClientInstance",
+              "PublicDnsName"
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "6767f686-5acd-4893-b8eb-a91bf726088b"
+        }
+      }
     }
   },
   "Parameters": {
@@ -731,6 +1005,11 @@
       "Description": "Name of Chef Server to create.",
       "Type": "String",
       "Default": "chef"
+    },
+    "ChefClientName": {
+      "Description": "Name of Chef Client to create.",
+      "Type": "String",
+      "Default": "chef-client"
     },
     "DomainName": {
       "Description": "Name of existing domain.",
